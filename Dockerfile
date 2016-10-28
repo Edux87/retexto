@@ -2,7 +2,7 @@ FROM alpine:3.4
 ENV TERM xterm
 MAINTAINER edanie15@gmail.com
 
-RUN apk add --no-cache python bash && \
+RUN apk add --no-cache python bash ca-certificates && \
     python -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip install --upgrade pip setuptools && \

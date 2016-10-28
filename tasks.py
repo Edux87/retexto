@@ -39,11 +39,12 @@ def test(ctx):
 
 
 @task
-def publish(pre=[build]):
-    run("twine upload dist/*")
+def upload_test(pre=[build]):
+    run("python setup.py register -r pypitest")
+    run("python setup.py sdist upload -r pypitest")
 
 
 @task
-def register(pre=[build]):
-    run("twine register dist/retexto-1.0-py2.py3-none-any.whl")
-    run("twine register dist/retexto-1.0.tar.gz")
+def upload_live(pre=[build]):
+    run("python setup.py register -r pypi")
+    run("python setup.py sdist upload -r pypi")

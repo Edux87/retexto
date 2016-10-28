@@ -71,6 +71,7 @@ setup(
     packages=get_packages(package),
     package_data=get_package_data(package),
     install_requires=REQUIREMENTS,
+    url='https://github.com/Edux87/retexto',
     tests_require=['invoke'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
