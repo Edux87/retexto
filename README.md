@@ -41,6 +41,7 @@ Fast text processing for python
                 .remove_punctuation() \
                 .remove_multispaces() \
                 .lower() \
+                .remove_stopwords() \
                 .split_words(uniques=True)
         print(s)
         ['username', 'from', 'love', 'i', 'ned', 'funy', 'juana', 'vo', 'this', 'si', 'im', 'se', 'peru', 'smile', 'so', 'smiling', 'carlos']

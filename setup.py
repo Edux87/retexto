@@ -30,7 +30,7 @@ REQUIREMENTS = [
     'unidecode'
 ]
 
-DESCRIPTION = ("Compact interface for Assisted Machine Learning")
+DESCRIPTION = ("Compact and fast library for text procesing")
 with open('README.md') as f:
     LONG_DESCRIPTION = f.read()
 
