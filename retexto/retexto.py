@@ -4,6 +4,7 @@ import unicodedata
 import string
 import sys
 from .unicodes_codes import *
+from .stopwords import *
 
 
 PY2 = int(sys.version[0]) == 2
@@ -138,6 +139,15 @@ class ReTexto:
                 l_text.append(char)
                 continue
         return ReTexto(''.join(l_text))
+
+    @classmethod
+    def remove_stopwords(self, lang=None):
+        l_text = []
+        sw = stopwords(lang)
+        for char in self.split_words():
+            if not (self.is_unicode(char) in sw):
+                l_text.append(char)
+        return ReTexto(' '.join(l_text))
 
     @classmethod
     def convert_specials(self):

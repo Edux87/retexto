@@ -78,3 +78,8 @@ class RemoversTest(TestCase):
     def test_remove_multispaces(self):
         text = ReTexto(SAMPLE)
         assert_true(isinstance(text.remove_multispaces(), object))
+
+    @classmethod
+    def test_remove_stopwords(self):
+        text = ReTexto(SAMPLE)
+        assert_true(isinstance(text.remove_stopwords(), object))

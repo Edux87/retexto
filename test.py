@@ -26,5 +26,6 @@ if __name__ == '__main__':
             .remove_punctuation(by=' ') \
             .remove_nochars(preserve_tilde=True) \
             .lower() \
+            .remove_stopwords() \
             .split_words(uniques=True)
     print(s)
