@@ -4,10 +4,15 @@ import os
 import re
 from setuptools import setup
 
+
 name = 'retexto'
-package = 'unicode'
+package = 'retexto'
+repo_url = 'https://github.com/Edux87/retexto'
+REQUIREMENTS = [
+    'unidecode'
+]
 
-
+DESCRIPTION = ("Lemmatizer for spanish language")
 def find_version(fname):
     """Attempts to find the version number in the file names fname.
     Raises RuntimeError if not found.
@@ -24,13 +29,8 @@ def find_version(fname):
         raise RuntimeError('Cannot find version information')
     return version
 
-__version__ = find_version("retexto/__init__.py")
+__version__ = find_version(name + "/__init__.py")
 
-REQUIREMENTS = [
-    'unidecode'
-]
-
-DESCRIPTION = ("Compact and fast library for text procesing")
 with open('README.md') as f:
     LONG_DESCRIPTION = f.read()
 
@@ -71,23 +71,19 @@ setup(
     packages=get_packages(package),
     package_data=get_package_data(package),
     install_requires=REQUIREMENTS,
-    url='https://github.com/Edux87/retexto',
+    url=repo_url,
     tests_require=['invoke'],
+    include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Environment :: Console',
         'Operating System :: OS Independent',
         'License :: OSI Approved :: Apache Software License',
         'Topic :: Text Editors :: Text Processing',
-        'Topic :: Text Editors :: Word Processors',
+        'Topic :: Text Editors :: Word Processors'
     ],
 )
