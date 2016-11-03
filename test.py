@@ -10,14 +10,12 @@ if __name__ == '__main__':
         loooveee thiiis 😌😎 \
         @florenciaflor19 Si!!! sé vo… 🐷JUANA🐷 \
         smile! haha jejeje jojojo jujuju jijijijajaja 😂'
-
     text = ReTexto(s)
     s = text.remove_html() \
             .remove_mentions() \
             .remove_tags() \
             .remove_smiles(by='SMILING') \
             .convert_emoji() \
-            .convert_specials() \
             .remove_url() \
             .remove_duplicate(r='a-jp-z') \
             .remove_duplicate_vowels() \

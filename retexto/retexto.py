@@ -39,23 +39,19 @@ REGEX_CONSONANTS = re.compile(r'([b-df-hj-np-tv-z])\1+')
 REGEX_SPACES = re.compile(r' +')
 REGEX_URLS = re.compile(r'(www|http|https)(?:[a-zA-Z]|[0-9]|[$-_@.&+]|\
 [!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
-MAP_SPECIALS = dict((
-    (ord(u'Á'), u'a'), (ord(u'É'), u'e'), (ord(u'Í'), u'i'),
-    (ord(u'Ó'), u'o'), (ord(u'Ú'), u'u'), (ord(u'Ñ'), u'ñ'),
-    (ord(u'À'), u'a'), (ord(u'È'), u'e'), (ord(u'Ì'), u'i'),
-    (ord(u'Ò'), u'o'), (ord(u'Ù'), u'u'), (ord(u'ç'), u'c'),
-    (ord(u'á'), u'a'), (ord(u'é'), u'e'), (ord(u'í'), u'i'),
-    (ord(u'ó'), u'o'), (ord(u'ú'), u'u'), (ord(u'ñ'), u'ñ'),
-    (ord(u'à'), u'a'), (ord(u'è'), u'e'), (ord(u'ì'), u'i'),
-    (ord(u'ò'), u'o'), (ord(u'ù'), u'u'), (ord(u'ü'), u'u'),
-    (ord(u'ä'), u'a'), (ord(u'ë'), u'e'), (ord(u'ï'), u'i'),
-    (ord(u'ö'), u'o'), (ord(u'ü'), u'u'), (ord(u'ÿ'), u'y'),
-    (ord(u'Ç'), u'c')
-))
-# REGEX_EMOJIS = re.compile(r'[\uDC00-\uDFFF]')
-# REGEX_EMOJIS = re.compile(ur'[U00010000-U0010ffff]')
-# REGEX_EMOJIS = re.compile(r'[\uDC00-\uDFFF]', re.UNICODE)
-# REGEX_EMOJIS = re.compile(r'[U00010000-U0010ffff]', re.UNICODE)
+MAP_TILDE = [
+    ord(u'Á'), ord(u'É'), ord(u'Í'),
+    ord(u'Ó'), ord(u'Ú'), ord(u'Ñ'),
+    ord(u'À'), ord(u'È'), ord(u'Ì'),
+    ord(u'Ò'), ord(u'Ù'), ord(u'ç'),
+    ord(u'á'), ord(u'é'), ord(u'í'),
+    ord(u'ó'), ord(u'ú'), ord(u'ñ'),
+    ord(u'à'), ord(u'è'), ord(u'ì'),
+    ord(u'ò'), ord(u'ù'), ord(u'ü'),
+    ord(u'ä'), ord(u'ë'), ord(u'ï'),
+    ord(u'ö'), ord(u'ü'), ord(u'ÿ'),
+    ord(u'Ç')
+]
 REGEX_EMOJIS = re.compile(u'[\U0001F600-\U0001F64F]', re.UNICODE)
 
 
@@ -128,14 +124,13 @@ class ReTexto:
 
     @classmethod
     def remove_nochars(self, preserve_tilde=False):
-        chars = MAP_CHARS
+        chars = MAP_CHARS.keys()
         if preserve_tilde:
-            chars.update(MAP_SPECIALS)
-        l_char = chars.keys()
+            chars += MAP_TILDE
+        l_char = chars
         l_text = []
-        for char in list(self.TEXT):
-            c = ord(char)
-            if c in l_char:
+        for char in list(self.is_unicode(self.TEXT)):
+            if ord(char) in l_char:
                 l_text.append(char)
                 continue
         return ReTexto(''.join(l_text))
@@ -189,7 +184,12 @@ class ReTexto:
     @classmethod
     def split_words(self, uniques=False):
         l = self.TEXT.split()
-        return list(set(l)) if uniques else l
+        if uniques:
+            return l
+        else:
+            seen = set()
+            r = [x for x in l if x not in seen and not seen.add(x)]
+            return r
 
     @classmethod
     def lower(self):

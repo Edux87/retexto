@@ -796,7 +796,8 @@ SPA = [
     u'darse',
     u'ven',
     u'mio',
-    u'ha'
+    u'ha',
+    u'sé'
 ]
 
 
