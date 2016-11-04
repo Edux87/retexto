@@ -33,7 +33,7 @@ STR_PUNC = list(string.punctuation)
 REGEX_HTML = re.compile(r'<[^>]*>')
 REGEX_MENTIONS = re.compile(r'\S*[@](?:\[[^\]]+\]|\S+)')
 REGEX_TAGS = re.compile(r'\S*[#](?:\[[^\]]+\]|\S+)')
-REGEX_SMILES = re.compile(r'([j|h][aeiou]){2,}')
+REGEX_SMILES = re.compile(r'([j|h][aeiou]){3,}')
 REGEX_VOWELS = re.compile(r'([aeiou])\1+')
 REGEX_CONSONANTS = re.compile(r'([b-df-hj-np-tv-z])\1+')
 REGEX_SPACES = re.compile(r' +')
@@ -185,11 +185,13 @@ class ReTexto:
     def split_words(self, uniques=False):
         l = self.TEXT.split()
         if uniques:
-            return l
-        else:
             seen = set()
-            r = [x for x in l if x not in seen and not seen.add(x)]
-            return r
+            l = [x for x in l if x not in seen and not seen.add(x)]
+        # if negrams:
+        #     for i in range(len(l)):
+        #         if l[i] == 'no':
+        #             print 'no_' + l[i+1]
+        return l
 
     @classmethod
     def lower(self):

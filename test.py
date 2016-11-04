@@ -9,15 +9,15 @@ if __name__ == '__main__':
         #Friends #Text jajajajaja so fffunny  \
         loooveee thiiis 😌😎 \
         @florenciaflor19 Si!!! sé vo… 🐷JUANA🐷 \
-        smile! haha jejeje jojojo jujuju jijijijajaja 😂'
+        smiles! hahaha jejeje jojojo jujuju jijijijajaja 😂'
     text = ReTexto(s)
     s = text.remove_html() \
             .remove_mentions() \
             .remove_tags() \
-            .remove_smiles(by='SMILING') \
+            .remove_smiles(by='smiling') \
             .convert_emoji() \
             .remove_url() \
-            .remove_duplicate(r='a-jp-z') \
+            .remove_duplicate(r='a-km-qs-y') \
             .remove_duplicate_vowels() \
             .remove_duplicate_consonants() \
             .remove_multispaces() \
@@ -25,5 +25,5 @@ if __name__ == '__main__':
             .remove_nochars(preserve_tilde=True) \
             .lower() \
             .remove_stopwords() \
-            .split_words(uniques=True)
+            .split_words()
     print(s)
