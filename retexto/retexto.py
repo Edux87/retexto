@@ -59,10 +59,7 @@ REGEX_EMOJIS = re.compile(u'[\U0001F600-\U0001F64F]', re.UNICODE)
 class ReTexto:
     @classmethod
     def __init__(self, text):
-        if len(text):
-            self.TEXT = text.rstrip()
-        else:
-            raise 'len text is 0'
+        self.TEXT = text.rstrip()
 
     @classmethod
     def __repr__(self):
@@ -115,6 +112,7 @@ class ReTexto:
     @classmethod
     def remove_punctuation(self, by=''):
         l_text = []
+        l_unicodes = set(UNICODE_EMOJI.keys())
         for char in list(self.TEXT):
             if not (char in STR_PUNC):
                 l_text.append(char)
@@ -127,7 +125,7 @@ class ReTexto:
         chars = MAP_CHARS.keys()
         if preserve_tilde:
             chars += MAP_TILDE
-        l_char = chars
+        l_char = set(chars)
         l_text = []
         for char in list(self.is_unicode(self.TEXT)):
             if ord(char) in l_char:
@@ -187,10 +185,6 @@ class ReTexto:
         if uniques:
             seen = set()
             l = [x for x in l if x not in seen and not seen.add(x)]
-        # if negrams:
-        #     for i in range(len(l)):
-        #         if l[i] == 'no':
-        #             print 'no_' + l[i+1]
         return l
 
     @classmethod

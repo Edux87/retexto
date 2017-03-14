@@ -12,18 +12,28 @@ if __name__ == '__main__':
         smiles! hahaha jejeje jojojo jujuju jijijijajaja 😂'
     text = ReTexto(s)
     s = text.remove_html() \
+            .lower() \
             .remove_mentions() \
             .remove_tags() \
             .remove_smiles(by='smiling') \
-            .convert_emoji() \
             .remove_url() \
             .remove_duplicate(r='a-km-qs-y') \
             .remove_duplicate_vowels() \
             .remove_duplicate_consonants() \
             .remove_multispaces() \
             .remove_punctuation(by=' ') \
+            .convert_emoji() \
             .remove_nochars(preserve_tilde=True) \
+            .remove_stopwords() \
+            .split_words()
+    print(s)
+    s = 'San Juan de Lurigancho ¿Por qué es una mala idea destruir un complejo \
+        verde y deportivo para levantar un hospital? El barrio Enrique \
+        Montenegro en San Juan de Lurigancho (SJL) sin dinero'
+    text = ReTexto(s)
+    s = text.remove_html() \
             .lower() \
+            .remove_nochars(preserve_tilde=True) \
             .remove_stopwords() \
             .split_words()
     print(s)

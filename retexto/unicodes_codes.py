@@ -1293,4 +1293,4 @@ UNICODE_EMOJI = {v: k for k, v in UNICODE_EMOJI.items()}
 
 def emoji_name(u):
     m = u.group()
-    return UNICODE_EMOJI.get(m) + ' '
+    return ' ' + UNICODE_EMOJI.get(m).title() + ' '
