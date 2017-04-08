@@ -32,19 +32,19 @@ class RemoversTest(TestCase):
     @classmethod
     def test_pipe(self):
         text = ReTexto(SAMPLE).remove_html() \
-                .remove_mentions() \
-                .remove_tags() \
-                .remove_smiles(by='SMILING') \
-                .convert_specials() \
-                .convert_emoji() \
-                .remove_nochars(preserve_tilde=True) \
-                .remove_url() \
-                .remove_duplicate(r='a-jp-z') \
-                .remove_duplicate_vowels() \
-                .remove_duplicate_consonants() \
-                .remove_punctuation() \
-                .remove_multispaces() \
-                .lower() \
-                .split_words(uniques=True)
+            .remove_mentions() \
+            .remove_tags() \
+            .remove_smiles(by='SMILING') \
+            .convert_specials() \
+            .convert_emoji() \
+            .remove_nochars(preserve_tilde=True) \
+            .remove_url() \
+            .remove_duplicate(r='a-jp-z') \
+            .remove_duplicate_vowels() \
+            .remove_duplicate_consonants() \
+            .remove_punctuation() \
+            .remove_multispaces() \
+            .lower() \
+            .split_words(uniques=True)
 
         assert_true(isinstance(text, object))

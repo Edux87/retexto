@@ -68,8 +68,7 @@ class ReTexto:
     @staticmethod
     def is_unicode(v, encoding='utf-8'):
         if isinstance(encoding, basestring):
-            encoding = ((encoding,),) + \
-                        (('windows-1252',), (ENCODE, 'ignore'))
+            encoding = ((encoding,),) + (('windows-1252',), (ENCODE, 'ignore'))
         if isinstance(v, BINARY_TYPE):
             for e in encoding:
                 try:
@@ -89,9 +88,9 @@ class ReTexto:
     @classmethod
     def remove_mentions(self, by=''):
         try:
-            return ReTexto(re.sub(
-                                REGEX_MENTIONS,
-                                by, self.is_unicode(self.TEXT)))
+            return ReTexto(
+                re.sub(REGEX_MENTIONS, by, self.is_unicode(self.TEXT))
+            )
         except Exception as e:
             print(e)
 
@@ -181,11 +180,11 @@ class ReTexto:
 
     @classmethod
     def split_words(self, uniques=False):
-        l = self.TEXT.split()
+        lspl = self.TEXT.split()
         if uniques:
             seen = set()
-            l = [x for x in l if x not in seen and not seen.add(x)]
-        return l
+            lspl = [x for x in lspl if x not in seen and not seen.add(x)]
+        return lspl
 
     @classmethod
     def lower(self):
