@@ -1,0 +1,13 @@
+[distutils]
+index-servers =
+  pypi
+  pypitest
+
+[pypi]
+username = edaniel15
+password = ***************@
+
+[pypitest]
+repository = https://test.pypi.org/legacy/
+username = edaniel15
+password = ******************@

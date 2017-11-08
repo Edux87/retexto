@@ -4,8 +4,8 @@ Fast text processing for python
 ### Run
 
     cd /[project_path]
-    docker build -t retext .
-    docker run -v $(pwd):/retext:rw -it retext bash
+    docker build -t retexto .
+    docker run -v $(pwd):/retexto:rw -it retexto bash
 
 ### Test
 
@@ -13,7 +13,8 @@ Fast text processing for python
 
 ### Work in
 
-    docker run -v $(pwd):/jiazz:rw -it jiazz bash
+    docker run -v $(pwd):/retexto:rw -it retexto bash
+    invoke test
 
 ## Basic Use
 

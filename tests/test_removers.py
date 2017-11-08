@@ -50,6 +50,13 @@ class RemoversTest(TestCase):
         assert_true(isinstance(text.remove_nochars(), object))
 
     @classmethod
+    def test_remove_nochars_2(self):
+        text = ReTexto('perÚ - AÑo')
+        assert_true(
+            isinstance(text.remove_nochars(preserve_tilde=True), object)
+        )
+
+    @classmethod
     def test_remove_url(self):
         text = ReTexto(SAMPLE)
         assert_true(isinstance(text.remove_url(), object))

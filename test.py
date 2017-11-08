@@ -6,6 +6,7 @@ if __name__ == '__main__':
     s = '@Edux87, i need this www.google.com | https://github.com <br> \
         <strong>UserName: çarlos </strong> \
         i\'m from Perú 😛 \
+        FeLiZ aÑo NuEVo \
         #Friends #Text jajajajaja so fffunny  \
         loooveee thiiis 😌😎 \
         @florenciaflor19 Si!!! sé vo… 🐷JUANA🐷 \
@@ -37,3 +38,11 @@ if __name__ == '__main__':
             .remove_stopwords() \
             .split_words()
     print(s)
+    s = 'Que buen Año! mi PerÚ'
+    text = ReTexto(s)
+    s = text.remove_html() \
+            .lower() \
+            .remove_nochars(preserve_tilde=True) \
+            .remove_stopwords()
+
+    print(s.text)

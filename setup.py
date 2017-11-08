@@ -12,7 +12,7 @@ REQUIREMENTS = [
     'unidecode'
 ]
 
-DESCRIPTION = ("Lemmatizer for spanish language")
+DESCRIPTION = ("Fast text processing")
 def find_version(fname):
     """Attempts to find the version number in the file names fname.
     Raises RuntimeError if not found.

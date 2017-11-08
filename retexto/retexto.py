@@ -59,11 +59,11 @@ REGEX_EMOJIS = re.compile(u'[\U0001F600-\U0001F64F]', re.UNICODE)
 class ReTexto:
     @classmethod
     def __init__(self, text):
-        self.TEXT = text.rstrip()
+        self.text = self.is_unicode(text.rstrip())
 
     @classmethod
     def __repr__(self):
-        return self.TEXT
+        return self.text
 
     @staticmethod
     def is_unicode(v, encoding='utf-8'):
@@ -73,7 +73,7 @@ class ReTexto:
             for e in encoding:
                 try:
                     return v.decode(*e)
-                except:
+                except Exception:
                     pass
             return v
         return unicode(v)
@@ -81,43 +81,46 @@ class ReTexto:
     @classmethod
     def remove_html(self, by=''):
         try:
-            return ReTexto(re.sub(REGEX_HTML, by, self.TEXT))
+            self.text = re.sub(REGEX_HTML, by, self.text)
+            return self
         except Exception as e:
-            print(e)
+            raise Exception('STR_EXCEPTION')
 
     @classmethod
     def remove_mentions(self, by=''):
         try:
-            return ReTexto(
-                re.sub(REGEX_MENTIONS, by, self.is_unicode(self.TEXT))
-            )
+            self.text = re.sub(REGEX_MENTIONS, by, self.text)
+            return self
         except Exception as e:
-            print(e)
+            raise Exception('STR_EXCEPTION')
 
     @classmethod
     def remove_tags(self, by=''):
         try:
-            return ReTexto(re.sub(REGEX_TAGS, by, self.TEXT))
+            self.text = re.sub(REGEX_TAGS, by, self.text)
+            return self
         except Exception as e:
-            print(e)
+            raise Exception('STR_EXCEPTION')
 
     @classmethod
     def remove_smiles(self, by=''):
         try:
-            return ReTexto(re.sub(REGEX_SMILES, by, self.TEXT))
+            self.text = re.sub(REGEX_SMILES, by, self.text)
+            return self
         except Exception as e:
-            print(e)
+            raise Exception('STR_EXCEPTION')
 
     @classmethod
     def remove_punctuation(self, by=''):
         l_text = []
         l_unicodes = set(UNICODE_EMOJI.keys())
-        for char in list(self.TEXT):
+        for char in list(self.text):
             if not (char in STR_PUNC):
                 l_text.append(char)
                 continue
             l_text.append(by)
-        return ReTexto(''.join(l_text))
+        self.text = ''.join(l_text)
+        return self
 
     @classmethod
     def remove_nochars(self, preserve_tilde=False):
@@ -126,11 +129,12 @@ class ReTexto:
             chars += MAP_TILDE
         l_char = set(chars)
         l_text = []
-        for char in list(self.is_unicode(self.TEXT)):
+        for char in list(self.is_unicode(self.text)):
             if ord(char) in l_char:
                 l_text.append(char)
                 continue
-        return ReTexto(''.join(l_text))
+        self.text = ''.join(l_text)
+        return self
 
     @classmethod
     def remove_stopwords(self, lang=None):
@@ -139,48 +143,56 @@ class ReTexto:
         for char in self.split_words():
             if not (self.is_unicode(char) in sw):
                 l_text.append(char)
-        return ReTexto(' '.join(l_text))
+        self.text = ' '.join(l_text)
+        return self
 
     @classmethod
     def convert_specials(self):
-        return ReTexto(unidecode(self.is_unicode(self.TEXT)))
+        self.text = unidecode(self.is_unicode(self.text))
+        return self
 
     @classmethod
     def convert_emoji(self):
-        text = self.TEXT
+        text = self.text
         if PY2:
-            if not isinstance(self.TEXT, unicode):
-                text = self.TEXT.decode('utf-8')
+            if not isinstance(text, unicode):
+                text = text.decode('utf-8')
             r = re.sub(REGEX_EMOJIS, lambda m: emoji_name(m), text)
             r = r.encode(ENCODE)
         else:
             r = re.sub(REGEX_EMOJIS, lambda m: emoji_name(m), text)
-        return ReTexto(r)
+        self.text = r
+        return self
 
     @classmethod
     def remove_url(self, by=''):
-        return ReTexto(re.sub(REGEX_URLS, '', self.TEXT))
+        self.text = re.sub(REGEX_URLS, '', self.text)
+        return self
 
     @classmethod
     def remove_duplicate_consonants(self):
-        return ReTexto(re.sub(REGEX_CONSONANTS, r'\1', self.TEXT))
+        self.text = re.sub(REGEX_CONSONANTS, r'\1', self.text)
+        return self
 
     @classmethod
     def remove_duplicate(self, r='a-z'):
         p = re.compile(r'([%s])\1+' % r)
-        return ReTexto(re.sub(p, r'\1', self.TEXT))
+        self.text = re.sub(p, r'\1', self.text)
+        return self
 
     @classmethod
     def remove_duplicate_vowels(self):
-        return ReTexto(re.sub(REGEX_VOWELS, r'\1', self.TEXT))
+        self.text = re.sub(REGEX_VOWELS, r'\1', self.text)
+        return self
 
     @classmethod
     def remove_multispaces(self):
-        return ReTexto(re.sub(REGEX_SPACES, ' ', self.TEXT))
+        self.text = re.sub(REGEX_SPACES, ' ', self.text)
+        return self
 
     @classmethod
     def split_words(self, uniques=False):
-        lspl = self.TEXT.split()
+        lspl = self.text.split()
         if uniques:
             seen = set()
             lspl = [x for x in lspl if x not in seen and not seen.add(x)]
@@ -188,4 +200,5 @@ class ReTexto:
 
     @classmethod
     def lower(self):
-        return ReTexto(self.TEXT.lower())
+        self.text = self.text.lower()
+        return self

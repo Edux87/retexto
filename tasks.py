@@ -40,12 +40,12 @@ def test(ctx):
 
 
 @task
-def upload_test(pre=[build]):
+def publishTest(pre=[build]):
     run("python setup.py register -r pypitest")
     run("python setup.py sdist upload -r pypitest")
 
 
 @task
-def upload_live(pre=[build]):
+def publish(pre=[build]):
     run("python setup.py register -r pypi")
     run("python setup.py sdist upload -r pypi")
