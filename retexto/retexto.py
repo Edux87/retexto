@@ -126,7 +126,7 @@ class ReTexto:
     def remove_nochars(self, preserve_tilde=False):
         chars = MAP_CHARS.keys()
         if preserve_tilde:
-            chars += MAP_TILDE
+            chars = list(chars) + MAP_TILDE
         l_char = set(chars)
         l_text = []
         for char in list(self.is_unicode(self.text)):

@@ -16,6 +16,11 @@ Fast text processing for python
     docker run -v $(pwd):/retexto:rw -it retexto bash
     invoke test
 
+### Publish
+
+    invoke publishTest ..... all ok?
+    invoke publish
+
 ## Basic Use
 
     if __name__ == '__main__':
