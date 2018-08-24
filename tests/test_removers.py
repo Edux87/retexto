@@ -50,6 +50,11 @@ class RemoversTest(TestCase):
         assert_true(isinstance(text.remove_nochars(), object))
 
     @classmethod
+    def test_strip_acents(self):
+        text = ReTexto('perú')
+        assert_true(text.strip_accents().text == 'peru')
+
+    @classmethod
     def test_remove_nochars_2(self):
         text = ReTexto('perÚ - AÑo')
         assert_true(

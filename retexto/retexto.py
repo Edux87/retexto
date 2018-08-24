@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import re
-import unicodedata
+import unicodedata as udat
 import string
 import sys
 from .unicodes_codes import *
@@ -188,6 +188,14 @@ class ReTexto:
     @classmethod
     def remove_multispaces(self):
         self.text = re.sub(REGEX_SPACES, ' ', self.text)
+        return self
+
+    @classmethod
+    def strip_accents(self):
+        accents = set(map(
+            udat.lookup, ('COMBINING ACUTE ACCENT', 'COMBINING GRAVE ACCENT')))
+        txt = [c for c in udat.normalize('NFD', self.text) if c not in accents]
+        self.text = udat.normalize('NFC', ''.join(txt))
         return self
 
     @classmethod

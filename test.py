@@ -46,3 +46,7 @@ if __name__ == '__main__':
             .remove_stopwords()
 
     print(s.text)
+    s = 'Cantó, señalÓ, Mirá, Pí'
+    text = ReTexto(s)
+    s = text.strip_accents()
+    print(s.text)
